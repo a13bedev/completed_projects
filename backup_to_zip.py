@@ -4,14 +4,16 @@
 import sys
 import os
 import shutil
+import click
 
-
+@click.command()
+@click.argument('folder')
 def bu_to_zip(folder: str) -> None:
     folder = os.path.abspath(folder)
     # Create file name with increment
     count = 1
     while True:
-        zip_file_name = os.path.basename(folder) + '_' + str(count) + '.zip'
+        zip_file_name = os.path.basename(folder) + '_' + str(count)
         if not os.path.exists(zip_file_name):
             break
         count += 1
@@ -19,13 +21,17 @@ def bu_to_zip(folder: str) -> None:
     shutil.make_archive(zip_file_name, 'zip', folder)
 
 
-def main():
-    if len(sys.argv) > 1:
-        directory = sys.argv[1]
-        bu_to_zip(directory)
-    else:
-        print('Argument not specified.')
+# def main():
+#     if len(sys.argv) > 1:
+#         directory = sys.argv[1]
+#         bu_to_zip(directory)
+#     else:
+#         print('Argument not specified.')
+# def main():
+#         bu_to_zip(directory)
+#     else:
+#         print('Argument not specified.')
 
 
 if __name__ == "__main__":
-    main()
+    bu_to_zip()
